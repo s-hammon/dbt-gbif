@@ -1,0 +1,37 @@
+
+version: 2
+
+models:
+  - name: genera
+    description: "Parses genera key & other taxonomical data from raw table."
+    config:
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [id]
+    columns:
+      - name: id
+        description: "Shares the genusKey value from GBIF."
+        constraints:
+          - not_null
+
+  - name: specimens
+    description: "Parses species key & other taxonomical data from raw table."
+    config:
+      contract:
+        enforced: true
+    constraints:
+      - type: primary_key
+        columns: [id]
+      - type: foreign_key
+        columns: [genus_id]
+    columns:
+      - name: id
+        description: "Shares the speciesKey value from GBIF."
+        constraints:
+          - not_null
+      - name: genus_id
+        description: "FK to genera.id"
+        constraints:
+          - not_null
